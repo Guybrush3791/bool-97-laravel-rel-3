@@ -20,6 +20,7 @@ return new class extends Migration
             $table -> string('code', 10) -> unique();
             $table -> string('name', 64);
             $table -> unsignedInteger('weight');
+            $table -> string('main_picture') -> nullable();
 
             $table -> timestamps();
         });

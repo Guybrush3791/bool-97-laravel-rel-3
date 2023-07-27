@@ -13,7 +13,8 @@ class Rabbit extends Model
         "code",
         "name",
         "weight",
-        "farmer_id"
+        "farmer_id",
+        "main_picture"
     ];
 
     public function farmer() {

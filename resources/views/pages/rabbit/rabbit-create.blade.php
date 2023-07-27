@@ -7,11 +7,16 @@
         <form
             method="POST"
             action="{{ route('rabbit.store') }}"
+            enctype="multipart/form-data"
         >
 
             @csrf
             @method("POST")
 
+            <label for="main_picture">Main picture</label>
+            <br>
+            <input type="file" name="main_picture" id="main_picture">
+            <br>
             <label for="name">Name</label>
             <br>
             <input type="text" name="name" id="name">

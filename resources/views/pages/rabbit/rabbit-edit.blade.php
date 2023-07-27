@@ -7,11 +7,20 @@
         <form
             method="POST"
             action={{ route('rabbit.update', $rabbit -> id) }}
+            enctype="multipart/form-data"
         >
 
             @csrf
             @method("PUT")
 
+            @if ($rabbit -> main_picture)
+                <img src="{{ asset('storage/' . $rabbit -> main_picture) }}" width="200px">
+                <br>
+            @endif
+            <label for="main_picture">Main picture</label>
+            <br>
+            <input type="file" name="main_picture" id="main_picture">
+            <br>
             <label for="name">Name</label>
             <br>
             <input type="text" name="name" id="name" value={{ $rabbit -> name }}>

@@ -3,6 +3,16 @@
 @section('content')
 
     <div class="text-center my-5">
+        <img
+            src="
+            {{ asset(
+                $rabbit -> main_picture
+                ? 'storage/' . $rabbit -> main_picture
+                : 'storage/images/rabbit.jpg'
+            ) }}"
+            width="200px"
+        >
+
         <h1>
             {{ $rabbit -> name }}
              -
@@ -17,6 +27,19 @@
             </a>
         </h3>
         <a class="btn btn-primary" href="{{ route('rabbit.edit', $rabbit -> id) }}">UPDATE</a>
+        @if ($rabbit -> main_picture)
+            <form
+                class="d-inline"
+                method="POST"
+                action="{{ route('rabbit.picture.delete', $rabbit -> id) }}"
+                >
+
+                @csrf
+                @method("DELETE")
+
+                <input class="btn btn-primary" type="submit" value="DELETE PICTURE">
+            </form>
+        @endif
         <form
             class="d-inline"
             method="POST"
