@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\Mail;
+
+use App\Mail\NewRabbitMail;
 
 use App\Models\Farmer;
 use App\Models\Rabbit;
@@ -37,11 +40,17 @@ class RabbitController extends Controller
             $this -> getValidations(),
             $this -> getValidationMessages()
         );
-        // $data['main_picture'] = Storage::put('uploads', $data['main_picture']);
-        $img_path = Storage::put('uploads', $data['main_picture']);
-        $data['main_picture'] = $img_path;
+
+        if (array_key_exists("main_picture", $data)) {
+
+            $img_path = Storage::put('uploads', $data['main_picture']);
+            $data['main_picture'] = $img_path;
+        }
 
         $rabbit = Rabbit :: create($data);
+
+        Mail :: to("admin@mail.com")
+            -> send(new NewRabbitMail($rabbit));
 
         return redirect() -> route('rabbit.show', $rabbit -> id);
     }
